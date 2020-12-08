@@ -4,9 +4,13 @@ const cors = require('cors')
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const dayjs = require('dayjs');
-var isBetween = require('dayjs/plugin/isBetween');
+const isBetween = require('dayjs/plugin/isBetween');
+const isSameOrBefore = require('dayjs/plugin/isSameOrBefore');
+const isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
 require('dotenv').config()
 dayjs.extend(isBetween);
+dayjs.extend(isSameOrAfter);
+dayjs.extend(isSameOrBefore);
 mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 const userSchema = mongoose.Schema({
@@ -91,13 +95,13 @@ app.get('/api/exercise/log', async (req, res) => {
     }
     if (req.query.from && !req.query.to) {
       log = log.filter(e => {
-        return dayjs(e.date).isAfter(req.query.from, req.query.to)
+        return dayjs(e.date).isSameOrAfter(req.query.from, req.query.to)
       })
     }
 
     if (req.query.to && !req.query.from) {
       log = log.filter(e => {
-        return dayjs(e.date).isBefore(req.query.from, req.query.to)
+        return dayjs(e.date).isSameOrBefore(req.query.from, req.query.to)
       })
     }
 
