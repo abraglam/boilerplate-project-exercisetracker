@@ -50,7 +50,7 @@ app.post('/api/exercise/add', async (req, res) => {
     }
     const activity = new Activity({
       userId: userId,
-      username: username,
+      username: user.username,
       description: description,
       duration: duration,
       date, date
