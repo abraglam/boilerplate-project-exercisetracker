@@ -87,6 +87,18 @@ app.get('/api/exercise/log', async(req, res)=>{
       return dayjs(e.date).isBetween(req.query.from, req.query.to)
     })
   }
+  if(req.query.from && !req.query.to){
+    log = log.filter(e=>{
+      return dayjs(e.date).isAfter(req.query.from, req.query.to)
+    })
+  }
+
+  if(req.query.to && !req.query.from){
+    log = log.filter(e=>{
+      return dayjs(e.date).isBefore(req.query.from, req.query.to)
+    })
+  }
+
   if(req.query.limit){
     log = log.filter((e,i)=>i<=(req.query.limit-1));
   }
