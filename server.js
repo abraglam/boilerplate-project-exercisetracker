@@ -78,7 +78,7 @@ app.get('/api/exercise/users', async (req, res) => {
 })
 
 app.get('/api/exercise/log', async(req, res)=>{
-  const userId = req.query.userId;
+ try{  const userId = req.query.userId;
   const user = await User.findById(userId, '_id username').lean();
   const activity = await Activity.find({userId: userId}).lean();
   let log = activity.map((e)=>{return {description: e.description, duration: e.duration, date: e.date}});
@@ -88,11 +88,14 @@ app.get('/api/exercise/log', async(req, res)=>{
     })
   }
   if(req.query.limit){
-    log = log.slice((req.query.limit - 1));
+    log = log.filter((e,i)=>i<=(req.query.limit-1));
   }
   user.count = log.length;
   user.log = log;
-  res.json(user);
+  res.json(user);}
+  catch(err){
+    console.error(err);
+  }
 })
 
 const listener = app.listen(process.env.PORT || 3000, () => {
