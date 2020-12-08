@@ -50,7 +50,7 @@ app.post('/api/exercise/add', async (req, res) => {
     let { userId, description, duration, date } = req.body;
     const user = await User.findById(userId, '_id username').lean();
     if (!date) {
-      date = dayjs().format('YYYY-MM-DD');
+      date = new Date().toDateString();
     }
     const activity = new Activity({
       userId: userId,
