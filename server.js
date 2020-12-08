@@ -19,7 +19,7 @@ const userSchema = mongoose.Schema({
 const activitySchema = mongoose.Schema({
   userId: String,
   description: String,
-  duration: String,
+  duration: Number,
   date: String
 })
 const User = new mongoose.model('Body', userSchema);
