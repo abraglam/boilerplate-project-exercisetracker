@@ -54,6 +54,7 @@ app.post('/api/exercise/add', async (req, res) => {
     } else {
       date = new Date(date).toDateString();
     }
+    duration = parseInt(duration);
     const activity = new Activity({
       userId: userId,
       username: user.username,
