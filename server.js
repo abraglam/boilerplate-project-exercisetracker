@@ -44,6 +44,7 @@ app.post('/api/exercise/new-user', async function(req, res){
 app.post('/api/exercise/add', async (req, res) => {
 try {   
   let { userId, description, duration, date } = req.body;
+  const user = await User.findById(userId, 'username').lean();
    if(!date){
      date = dayjs().format('YYYY-MM-DD');
    }
@@ -56,6 +57,7 @@ try {
    activity.save();
    res.json({
     userId: userId,
+    username: user,
     description: description,
     duration: duration,
     date, date
