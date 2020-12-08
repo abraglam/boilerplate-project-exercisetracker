@@ -19,7 +19,7 @@ const userSchema = mongoose.Schema({
 const activitySchema = mongoose.Schema({
   userId: String,
   description: String,
-  duration: Number,
+  duration: String,
   date: String
 })
 const User = new mongoose.model('Body', userSchema);
@@ -54,7 +54,6 @@ app.post('/api/exercise/add', async (req, res) => {
     } else {
       date = new Date(date).toDateString();
     }
-    duration = parseInt(duration);
     const activity = new Activity({
       userId: userId,
       username: user.username,
