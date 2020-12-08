@@ -58,9 +58,7 @@ try {
    user.description = description;
    user.duration = duration;
    user.date = date
-   res.json({
-     user
-  })
+   res.json(user)
 }
 catch (err){
   console.error(err);
