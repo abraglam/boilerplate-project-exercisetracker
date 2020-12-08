@@ -55,9 +55,10 @@ try {
      date, date
    })
    activity.save();
-   user.description = description;
-   user.duration = duration;
    user.date = date
+   user.duration = duration;
+   user.description = description;
+
    res.json(user)
 }
 catch (err){
